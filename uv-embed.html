@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UV Viewer</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #000; }
+    iframe { width: 100%; height: 100%; border: none; }
+  </style>
+  <script>
+    function encodeUV(url) {
+      return btoa(url);
+    }
+
+    window.onload = () => {
+      const params = new URLSearchParams(window.location.search);
+      const url = params.get("url");
+      if (!url) {
+        document.body.innerHTML = "<h1 style='color:white;text-align:center;'>No URL specified!</h1>";
+        return;
+      }
+
+      const encodedUrl = encodeUV(url);
+      const iframe = document.createElement("iframe");
+      iframe.src = "/uv/service/" + encodedUrl;
+      document.body.appendChild(iframe);
+    };
+  </script>
+</head>
+<body></body>
+</html>
